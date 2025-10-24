@@ -1,0 +1,35 @@
+Barkod numarası bilinen bir gönderinin hangi işlemlerden geçtiğini öğrenmeye olanak sağlayan web servisin kullanımı şu şekildedir; 
+BAĞLANTI ADRESİ
+Müşteriler, Web Servise ve kullanımı için gerekli wsdl dosyasına şu adresten ulaşabilirler:
+https://pttws.ptt.gov.tr/GonderiTakipV2/services/Sorgu?wsdl (Product Ortamı)
+https://pttws.ptt.gov.tr/GonderiTakipV2Test/services/Sorgu?wsdl (Test Ortamı)
+1-) GONDERISORGU METODU
+Müşterilerin gönderilerine ait barkod bazlı olarak o gönderiye ait tüm hareketleri listeler.
+INPUT PARAMETRELERİ
+1-	Barkod No (String): Durumu sorgulanacak gönderiye ait barkod numarasıdır
+2-	Kullanici (String), kurumsal müşteri numarası gönderilmelidir.
+3-	Sifre (String), İşletme dairesi tarafından verilecektir.
+
+OUTPUT PARAMETRELERİ
+Müşterilere, Web-Service ile gönderi sorgulamaları durumunda servisten şu veriler dönecektir:
+1-	sonucKodu (int): Yapılan sorgulamanın sonuç kodu.
+2-	sonucAciklama (String) : Yapılan sorgulamanın başarı durumunu açıklayan cümle.
+3-	BARNO (String) : Gönderiye ait barkod numarası.
+4-	IMERK (String) : Gönderinin kabul edildiği merkez.
+5-	VMERK (String) : Gönderinin varış merkez (eğer teslim edilmişse).
+6-	GR (String) : Gönderinin ağırlığı(Gram cinsinden).
+7-	GONUCR (String) : Gönderinin ücreti.
+8-	EKHIZ (String) : Gönderiye ait -varsa- ek hizmetler.
+9-	DEGKONUCR (String) : Gönderiye ait -varsa- değer konulmuş ücret.
+10-	ODSARUCR (String) : Gönderiye ait -varsa- ödeme şartlı ücreti.
+11-	ITARIH (String) : Gönderinin kabul edildiği tarih.
+12-	TESALAN (String) : Gönderiyi teslim alan kişinin adı ve soyadı(eğer teslim edilmişse).
+13-	GONDEREN (String) : Gönderiyi gönderen kişinin adı ve soyadı.
+14-	ALICI (String) : Gönderinin gönderildiği kişi.
+15-	safahatlar (GonderiSafahat[]): İçinde gönderilerin bilgilerini barındıran dizidir.
+GonderiSafahat Class yapısı şu şekildedir;
+
+siraNo (Integer): Gönderinin bulunduğu işlemin sıra numarasıdır.
+ISLEM (String): Gönderinin bulunduğu işlemin açıklamasıdır.
+IMERK (String): Gönderinin bulunduğu işlemin merkez adıdır.
+ITARIH (String): Gönderinin bulunduğu işlemin tarihidir.

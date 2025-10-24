@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="testsuccess.aspx.cs" Inherits="GedizMakina.testsuccess" %>

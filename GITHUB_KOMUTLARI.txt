@@ -1,0 +1,79 @@
+==============================================
+  GITHUB'A YÜKLEME KOMUTLARI
+  Sadece kopyala-yapıştır yap!
+==============================================
+
+ADIM 1: Terminal'i Aç
+---------------------
+Mac'te: Command + Space → "Terminal" yaz → Enter
+
+
+ADIM 2: Proje Klasörüne Git
+----------------------------
+Aşağıdaki komutu kopyala ve Terminal'e yapıştır:
+
+cd ~/Desktop/TMSN-B2b
+
+
+ADIM 3: Git Başlat
+------------------
+git init
+
+
+ADIM 4: GitHub Repo'yu Bağla
+-----------------------------
+git remote add origin https://github.com/uslukoray93/B2b-tmsn.git
+
+
+ADIM 5: Branch Ayarla
+---------------------
+git branch -M main
+
+
+ADIM 6: Tüm Dosyaları Ekle
+---------------------------
+git add .
+
+
+ADIM 7: İlk Commit
+------------------
+git commit -m "Initial commit - TMSN B2B Gediz Makina Project"
+
+
+ADIM 8: GitHub'a Gönder
+-----------------------
+git push -u origin main
+
+NOT: GitHub kullanıcı adı ve şifre/token isteyecek!
+- Username: uslukoray93
+- Password: (GitHub Personal Access Token gerekli)
+
+
+==============================================
+  EĞER HATA ALIRSAN
+==============================================
+
+HATA: "remote origin already exists"
+ÇÖZÜM:
+git remote remove origin
+git remote add origin https://github.com/uslukoray93/B2b-tmsn.git
+
+HATA: "support for password authentication was removed"
+ÇÖZÜM: GitHub Personal Access Token kullanman gerekiyor
+1. https://github.com/settings/tokens → Generate new token
+2. Şifre yerine bu token'ı kullan
+
+
+==============================================
+  SONRA NE OLACAK?
+==============================================
+
+1. Dosyalar GitHub'a yüklenecek
+2. Plesk otomatik çekecek (Git extension)
+3. Web.config'i Plesk'te düzenlemen gerekecek
+   (connection string için)
+
+
+==============================================
+Herhangi bir sorun olursa bana yaz!
+==============================================

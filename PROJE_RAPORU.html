@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMSN-B2B Gediz Makina - Detaylı Proje Analiz Raporu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .header .date {
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .nav-tabs {
+            background: #f8f9fa;
+            display: flex;
+            border-bottom: 3px solid #1e3c72;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 1em;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #1e3c72;
+            border-top: 3px solid #1e3c72;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #1e3c72;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #2a5298;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        h4 {
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-card h4 {
+            color: white;
+            margin-top: 0;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .info-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .badge-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .pros, .cons {
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .pros {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-left: 5px solid #28a745;
+        }
+
+        .cons {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-left: 5px solid #dc3545;
+        }
+
+        .pros h3, .cons h3 {
+            margin-top: 0;
+        }
+
+        .pros ul, .cons ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .pros li:before {
+            content: "✅ ";
+            margin-right: 10px;
+        }
+
+        .cons li:before {
+            content: "❌ ";
+            margin-right: 10px;
+        }
+
+        .pros li, .cons li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .pros li:last-child, .cons li:last-child {
+            border-bottom: none;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .score-card .score {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-card .label {
+            font-size: 1.5em;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            transition: width 1s ease;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            padding-left: 40px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #667eea;
+        }
+
+        .timeline-item:after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #667eea;
+        }
+
+        .folder-tree {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            overflow-x: auto;
+        }
+
+        .folder-tree ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .severity-critical { color: #dc3545; font-weight: bold; }
+        .severity-high { color: #fd7e14; font-weight: bold; }
+        .severity-medium { color: #ffc107; font-weight: bold; }
+        .severity-low { color: #28a745; }
+
+        .db-status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .db-status.not-found {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            color: #856404;
+        }
+
+        .recommendation {
+            background: #e7f3ff;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔍 TMSN-B2B Gediz Makina</h1>
+            <div class="subtitle">Kapsamlı Proje Analiz ve Değerlendirme Raporu</div>
+            <div class="date">📅 Rapor Tarihi: 24 Ekim 2025</div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('genel-bakis')">📊 Genel Bakış</button>
+            <button class="nav-tab" onclick="showTab('mimari')">🏗️ Mimari</button>
+            <button class="nav-tab" onclick="showTab('veritabani')">🗄️ Veritabanı</button>
+            <button class="nav-tab" onclick="showTab('guvenlik')">🔐 Güvenlik</button>
+            <button class="nav-tab" onclick="showTab('kod-kalitesi')">💻 Kod Kalitesi</button>
+            <button class="nav-tab" onclick="showTab('teknolojiler')">🛠️ Teknolojiler</button>
+            <button class="nav-tab" onclick="showTab('degerlendirme')">⭐ Değerlendirme</button>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Genel Bakış Tab -->
+            <div id="genel-bakis" class="tab-content active">
+                <h2>📊 Proje Genel Bakış</h2>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Proje Tipi</h4>
+                        <div class="value">B2B E-Ticaret</div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Platform</h4>
+                        <div class="value">ASP.NET</div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Kod Satırı</h4>
+                        <div class="value">~22,000</div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Toplam Sayfa</h4>
+                        <div class="value">255+</div>
+                    </div>
+                </div>
+
+                <h3>Proje Tanımı</h3>
+                <p>
+                    <strong>TMSN-B2B Gediz Makina</strong>, tarım makineleri sektöründe faaliyet gösteren
+                    bir firma için geliştirilmiş, bayiler arası işlem yapılmasını sağlayan bir B2B
+                    (Business-to-Business) e-ticaret platformudur.
+                </p>
+
+                <h3>Temel Özellikler</h3>
+                <ul>
+                    <li>✅ Bayi, Admin ve Müşteri Temsilcisi olmak üzere 3 ayrı kullanıcı rolü</li>
+                    <li>✅ Online sipariş yönetimi ve takibi</li>
+                    <li>✅ Kredi kartı ve vadeli ödeme entegrasyonu</li>
+                    <li>✅ Kredi limiti ve cari hesap yönetimi</li>
+                    <li>✅ Garanti, iade ve tamir talep sistemleri</li>
+                    <li>✅ Detaylı raporlama ve analiz araçları</li>
+                    <li>✅ Kampanya ve duyuru yönetimi</li>
+                    <li>✅ Responsive (mobil uyumlu) tasarım</li>
+                </ul>
+
+                <h3>Proje Klasör Yapısı</h3>
+                <div class="folder-tree">
+                    <ul>
+                        <li>📁 TMSN-B2b/</li>
+                        <ul>
+                            <li>📁 GedizMakina/ (Ana Proje)</li>
+                            <ul>
+                                <li>📁 Admin/ - Yönetim paneli (128 dosya)</li>
+                                <li>📁 user/ - Bayi arayüzü (164 dosya)</li>
+                                <li>📁 Mt/ - Müşteri temsilcisi (56 dosya)</li>
+                                <li>📁 App_Code/ - Yardımcı sınıflar</li>
+                                <li>📁 bin/ - Derlenmiş DLL'ler (184 dosya)</li>
+                                <li>📁 vendor/ - 3. parti kütüphaneler (74 klasör)</li>
+                                <li>📁 css/, js/, img/ - Frontend dosyaları</li>
+                                <li>📄 Web.config - Ana konfigürasyon</li>
+                                <li>📄 Global.asax.cs - Routing tanımları</li>
+                            </ul>
+                            <li>📁 packages/ - NuGet paketleri (22 klasör)</li>
+                            <li>📄 GedizMakina.sln - Solution dosyası</li>
+                        </ul>
+                    </ul>
+                </div>
+
+                <h3>Kullanıcı Rolleri ve Yetkileri</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rol</th>
+                                <th>Klasör</th>
+                                <th>Yetki ID</th>
+                                <th>Temel Yetkiler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-info">Bayi/Müşteri</span></td>
+                                <td>/user/</td>
+                                <td>Değişken</td>
+                                <td>Sipariş verme, ürün görüntüleme, hesap takibi</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-danger">Admin</span></td>
+                                <td>/Admin/</td>
+                                <td>1000000000</td>
+                                <td>Tüm sistem yönetimi, kullanıcı yönetimi, raporlar</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-warning">Müşteri Temsilcisi</span></td>
+                                <td>/Mt/</td>
+                                <td>100000000</td>
+                                <td>Bayi yönetimi, sipariş oluşturma, randevu takibi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mimari Tab -->
+            <div id="mimari" class="tab-content">
+                <h2>🏗️ Proje Mimarisi</h2>
+
+                <div class="alert alert-info">
+                    <strong>ℹ️ Önemli Not:</strong> Bu proje <strong>MVC (Model-View-Controller)</strong> değil,
+                    <strong>ASP.NET Web Forms</strong> mimarisi kullanmaktadır.
+                </div>
+
+                <h3>ASP.NET Web Forms Yapısı</h3>
+                <p>Proje, klasik ASP.NET Web Forms pattern'ini kullanmaktadır:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Katman</th>
+                                <th>MVC Karşılığı</th>
+                                <th>Projede Kullanımı</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>View</strong></td>
+                                <td>Views/</td>
+                                <td>.aspx sayfaları (HTML + Server Controls)</td>
+                                <td><span class="badge badge-success">Mevcut</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Controller</strong></td>
+                                <td>Controllers/</td>
+                                <td>.aspx.cs code-behind dosyaları</td>
+                                <td><span class="badge badge-success">Mevcut</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Model</strong></td>
+                                <td>Models/</td>
+                                <td>Models/ klasörü (BOŞ!)</td>
+                                <td><span class="badge badge-danger">Eksik</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Access</strong></td>
+                                <td>Repository/</td>
+                                <td>App_Code/ConCs.cs (Temel DB sınıfı)</td>
+                                <td><span class="badge badge-warning">Kısıtlı</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Dosya Yapısı (Web Forms Pattern)</h3>
+                <div class="code-block">
+// Örnek: user/basket.aspx
+
+basket.aspx             → View (HTML + ASP.NET Controls)
+basket.aspx.cs          → Controller (Event Handlers, Business Logic)
+basket.aspx.designer.cs → Auto-generated Control Declarations
+                </div>
+
+                <h3>Veri Erişim Katmanı</h3>
+                <p><strong>App_Code/ConCs.cs:</strong> Merkezi veritabanı erişim sınıfı</p>
+
+                <div class="code-block">
+public class ConCs
+{
+    public SqlConnection _Baglan() { ... }
+    public int InsUpdDel(string _Sql) { ... }
+    public DataTable DataTableGetir(string _Sql) { ... }
+    public DataRow DataRowGetir(string _Sql) { ... }
+}
+                </div>
+
+                <div class="alert alert-danger">
+                    <strong>⚠️ Kritik Sorun:</strong> Tüm metodlar string concatenation ile SQL sorgusu alıyor.
+                    <strong>SQL Injection açığı</strong> mevcut!
+                </div>
+
+                <h3>Routing Yapısı</h3>
+                <p><strong>Global.asax.cs</strong> içinde tanımlanmış 121 adet route:</p>
+
+                <div class="code-block">
+// Global.asax.cs - RouteAdd metodu
+
+route.MapPageRoute("user-login", "giris/", "~/user/login.aspx");
+route.MapPageRoute("user-basket", "sepet/", "~/user/basket.aspx");
+route.MapPageRoute("user-urun-detay", "urun/{0}/", "~/user/urun-detay.aspx");
+                </div>
+
+                <p><strong>SEO Dostu URL Örnekleri:</strong></p>
+                <ul>
+                    <li>✅ <code>/giris</code> → user/login.aspx</li>
+                    <li>✅ <code>/sepet</code> → user/basket.aspx</li>
+                    <li>✅ <code>/urun/12345</code> → user/urun-detay.aspx?id=12345</li>
+                    <li>✅ <code>/kategori/tarim-makineleri/pulverizatorler</code> → user/urunler-3.aspx</li>
+                </ul>
+
+                <h3>Master Page Hiyerarşisi</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Master Page</th>
+                                <th>Kullanıldığı Yer</th>
+                                <th>Özellikler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>user/user.Master</td>
+                                <td>Tüm bayi sayfaları</td>
+                                <td>Bayi menüsü, sepet, döviz kurları</td>
+                            </tr>
+                            <tr>
+                                <td>Admin/admin.Master</td>
+                                <td>Tüm admin sayfaları</td>
+                                <td>Admin dashboard, yönetim menüsü</td>
+                            </tr>
+                            <tr>
+                                <td>Mt/mt.Master</td>
+                                <td>Müşteri temsilcisi sayfaları</td>
+                                <td>MT menüsü, bayi listesi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Separation of Concerns Değerlendirmesi</h3>
+                <div class="alert alert-warning">
+                    <strong>📉 Zayıf:</strong> Business logic, data access ve UI kodu iç içe geçmiş durumda.
+                    Katmanlı mimari prensiplerine uyulmamış.
+                </div>
+
+                <p><strong>Örnek Kod Analizi (basket.aspx.cs):</strong></p>
+                <div class="code-block">
+// ❌ KÖTÜ: UI, Business Logic ve Data Access aynı yerde
+
+protected void btnGonder_Click(object sender, EventArgs e)
+{
+    // Business Logic: Kredi limit kontrolü
+    decimal limit = Convert.ToDecimal(dr["KalanLimit"].ToString());
+
+    // Data Access: Direct SQL
+    cn.InsUpdDel("INSERT INTO Siparisler (CariId, Tutar) VALUES (" + cariId + ", " + tutar + ")");
+
+    // UI: Redirect
+    Response.Redirect("/siparis-basarili");
+}
+                </div>
+            </div>
+
+            <!-- Veritabanı Tab -->
+            <div id="veritabani" class="tab-content">
+                <h2>🗄️ Veritabanı Yapısı</h2>
+
+                <h3>Veritabanı Bağlantı Bilgileri</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parametre</th>
+                                <th>Değer</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Server</td>
+                                <td>185.139.5.125 (Remote SQL Server)</td>
+                                <td><span class="badge badge-success">Canlı</span></td>
+                            </tr>
+                            <tr>
+                                <td>Database</td>
+                                <td>gediz</td>
+                                <td><span class="badge badge-info">Ana DB</span></td>
+                            </tr>
+                            <tr>
+                                <td>User ID</td>
+                                <td>sa (System Administrator)</td>
+                                <td><span class="badge badge-danger">Risk!</span></td>
+                            </tr>
+                            <tr>
+                                <td>Password</td>
+                                <td>Cs153575 (Açık metin)</td>
+                                <td><span class="badge badge-danger">Risk!</span></td>
+                            </tr>
+                            <tr>
+                                <td>Encryption</td>
+                                <td>False (Şifreleme kapalı)</td>
+                                <td><span class="badge badge-warning">Uyarı</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="db-status not-found">
+                    <strong>⚠️ Veritabanı Dosyası Durumu:</strong><br>
+                    Proje klasöründe <strong>.mdf, .ldf, .bak veya .sql</strong> dosyası bulunmamaktadır.<br>
+                    Veritabanı <strong>uzak sunucuda</strong> (185.139.5.125) barındırılmaktadır.<br>
+                    <strong>App_Data/</strong> klasörü boş (sadece UploadTemp/ mevcut).
+                </div>
+
+                <h3>Ana Veritabanı Tabloları (Kod Analizinden Çıkarım)</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tablo Adı</th>
+                                <th>Açıklama</th>
+                                <th>İlişkiler</th>
+                                <th>Kritiklik</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Cariler</strong></td>
+                                <td>Bayi/Müşteri bilgileri</td>
+                                <td>1:N → Siparisler, CariBakiye, Sepet</td>
+                                <td><span class="badge badge-danger">Yüksek</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Siparisler</strong></td>
+                                <td>Sipariş başlıkları</td>
+                                <td>1:N → SiparisDetay</td>
+                                <td><span class="badge badge-danger">Yüksek</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>SiparisDetay</strong></td>
+                                <td>Sipariş satırları</td>
+                                <td>N:1 → Siparisler, Urunler</td>
+                                <td><span class="badge badge-danger">Yüksek</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Urunler</strong></td>
+                                <td>Ürün katalogu</td>
+                                <td>N:1 → Kategoriler, Markalar</td>
+                                <td><span class="badge badge-warning">Orta</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sepet</strong></td>
+                                <td>Aktif alışveriş sepeti</td>
+                                <td>N:1 → Cariler, Urunler</td>
+                                <td><span class="badge badge-info">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sepet2</strong></td>
+                                <td>Sepet yedeği (duplikasyon)</td>
+                                <td>Sepet ile aynı</td>
+                                <td><span class="badge badge-secondary">Düşük</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CariBakiye</strong></td>
+                                <td>Cari hesap hareketleri</td>
+                                <td>N:1 → Cariler</td>
+                                <td><span class="badge badge-danger">Yüksek</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>OdemeTurleri</strong></td>
+                                <td>Ödeme şekilleri tanımları</td>
+                                <td>1:N → Siparisler</td>
+                                <td><span class="badge badge-info">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GarantiTalepleri</strong></td>
+                                <td>Garanti başvuruları</td>
+                                <td>N:1 → Cariler, Urunler</td>
+                                <td><span class="badge badge-info">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>IadeTalepleri</strong></td>
+                                <td>İade talepleri</td>
+                                <td>N:1 → Cariler, Siparisler</td>
+                                <td><span class="badge badge-info">Normal</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Stored Procedures (SP)</h3>
+                <ul>
+                    <li><strong>spSepetGetirAlt:</strong> Sepet toplamlarını hesaplama</li>
+                    <li><strong>spMuhB2BCariAktar:</strong> Muhasebe sisteminden toplu cari aktarımı</li>
+                    <li><strong>spMuhB2BCariAktarTek:</strong> Tekil cari aktarımı</li>
+                </ul>
+
+                <h3>User-Defined Functions</h3>
+                <ul>
+                    <li><strong>fncCariAnaSayfaBorc:</strong> Vadesi geçmiş borç hesaplama</li>
+                </ul>
+
+                <h3>Linked Server Entegrasyonu</h3>
+                <div class="code-block">
+-- Muhasebe sistemi bağlantısı (GEDIZLINK)
+SELECT * FROM [GEDIZLINK].DENEME_2024T.dbo.CARIGEN
+WHERE CRK = @CariKodu
+                </div>
+                <p>Muhasebe yazılımı ile canlı bağlantı mevcut (linked server üzerinden).</p>
+            </div>
+
+            <!-- Güvenlik Tab -->
+            <div id="guvenlik" class="tab-content">
+                <h2>🔐 Güvenlik Analizi</h2>
+
+                <div class="score-card">
+                    <div class="label">Güvenlik Puanı</div>
+                    <div class="score">2/10</div>
+                    <div>⚠️ KRİTİK GÜVENLİK AÇIKLARI MEVCUT</div>
+                </div>
+
+                <h3>🔴 Kritik Güvenlik Açıkları</h3>
+
+                <div class="alert alert-danger">
+                    <h4 class="severity-critical">1. SQL Injection (ÇOK YÜKSEK RİSK)</h4>
+                    <p><strong>Durum:</strong> Tüm projede yaygın - 100+ lokasyonda tespit edildi</p>
+                    <p><strong>Örnek Kod:</strong></p>
+                    <div class="code-block">
+// ❌ KÖTÜ - SQL Injection açığı
+string sql = "SELECT * FROM Cariler WHERE CariKodu = '" + txtCariKodu.Value + "'";
+cn.DataTableGetir(sql);
+
+// ✅ DOĞRU KULLANIM (Parametrize query)
+SqlCommand cmd = new SqlCommand("SELECT * FROM Cariler WHERE CariKodu = @CariKodu");
+cmd.Parameters.AddWithValue("@CariKodu", txtCariKodu.Value);
+                    </div>
+                    <p><strong>Etki:</strong></p>
+                    <ul>
+                        <li>Veritabanı manipülasyonu</li>
+                        <li>Tüm verilerin çalınması</li>
+                        <li>Veri silme/değiştirme</li>
+                        <li>Unauthorized access</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-danger">
+                    <h4 class="severity-critical">2. MD5 Password Hashing (YÜKSEK RİSK)</h4>
+                    <div class="code-block">
+// ❌ KÖTÜ - MD5 kullanımı
+string parola = FormsAuthentication.HashPasswordForStoringInConfigFile(txtParola.Value, "MD5");
+
+// ✅ DOĞRU - BCrypt kullanımı
+using BCrypt.Net;
+string hashedPassword = BCrypt.HashPassword(password);
+bool isValid = BCrypt.Verify(password, hashedPassword);
+                    </div>
+                    <p><strong>Sorunlar:</strong></p>
+                    <ul>
+                        <li>MD5 kırılabilir (rainbow tables)</li>
+                        <li>Salt kullanılmıyor</li>
+                        <li>Tek yönlü hash değil</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-danger">
+                    <h4 class="severity-critical">3. Hardcoded Credentials (YÜKSEK RİSK)</h4>
+                    <div class="code-block">
+// Ticket.cs - Açık şifre
+string _ConnectionStrings = "Data Source=185.139.5.125;
+                             Initial Catalog=Ticket;
+                             User ID=sa;
+                             Password=Cs153575";
+                    </div>
+                    <p><strong>Riskler:</strong></p>
+                    <ul>
+                        <li>Kaynak kodunda açık şifre</li>
+                        <li>SA (admin) hesabı kullanımı</li>
+                        <li>Git history'de şifre görünür</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-danger">
+                    <h4 class="severity-high">4. SA Hesabı Kullanımı (ORTA-YÜKSEK RİSK)</h4>
+                    <p>SQL Server'a <strong>SA (System Administrator)</strong> hesabıyla bağlanılıyor.</p>
+                    <p><strong>Sorunlar:</strong></p>
+                    <ul>
+                        <li>Least privilege prensibi ihlali</li>
+                        <li>Tüm veritabanına tam yetki</li>
+                        <li>Audit trail yok</li>
+                    </ul>
+                </div>
+
+                <h3>🟡 Orta Seviye Güvenlik Sorunları</h3>
+
+                <div class="alert alert-warning">
+                    <h4 class="severity-medium">5. Error Handling - Information Disclosure</h4>
+                    <div class="code-block">
+catch (Exception ex)
+{
+    // ❌ Detaylı hata mesajı kullanıcıya gösteriliyor
+    lblUyari.InnerText = ex.Message.ToString();
+    throw new Exception(ex.Message); // Stack trace kayboldu
+}
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <h4 class="severity-medium">6. Session Güvenliği</h4>
+                    <ul>
+                        <li>Session fixation koruması yok</li>
+                        <li>HTTPS zorlaması belirsiz</li>
+                        <li>Secure/HttpOnly cookie flags kontrol edilmeli</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-warning">
+                    <h4 class="severity-medium">7. Input Validation Eksikliği</h4>
+                    <ul>
+                        <li>Client-side validation var (ASP.NET validators)</li>
+                        <li>Server-side validation yetersiz</li>
+                        <li>XSS koruması belirsiz</li>
+                    </ul>
+                </div>
+
+                <h3>🟢 Pozitif Güvenlik Özellikleri</h3>
+                <ul>
+                    <li>✅ Session timeout mekanizması mevcut</li>
+                    <li>✅ ViewState kullanımı (tampering koruması)</li>
+                    <li>✅ Session keep-alive (kullanıcı deneyimi)</li>
+                    <li>✅ DevExpress kontrolleri (built-in encoding)</li>
+                </ul>
+
+                <h3>Acil Önlemler</h3>
+                <div class="recommendation">
+                    <strong>📌 HEMEN YAPILMASI GEREKENLER:</strong>
+                    <ol>
+                        <li>Tüm SQL sorgularını parametrize et (1-2 hafta)</li>
+                        <li>MD5'i BCrypt ile değiştir (1 hafta)</li>
+                        <li>Connection string'i şifrele (1 gün)</li>
+                        <li>SA hesabı yerine limited user oluştur (1 gün)</li>
+                        <li>HTTPS zorunlu hale getir (1 gün)</li>
+                        <li>Detaylı error logging ekle (3 gün)</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Kod Kalitesi Tab -->
+            <div id="kod-kalitesi" class="tab-content">
+                <h2>💻 Kod Kalitesi Analizi</h2>
+
+                <div class="score-card">
+                    <div class="label">Kod Kalitesi Puanı</div>
+                    <div class="score">4/10</div>
+                    <div>Amatör/Orta Seviye</div>
+                </div>
+
+                <h3>İstatistikler</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Toplam C# Kodu</h4>
+                        <div class="value">22,000+</div>
+                        <small>satır</small>
+                    </div>
+                    <div class="info-card">
+                        <h4>ASPX Sayfaları</h4>
+                        <div class="value">255+</div>
+                        <small>sayfa</small>
+                    </div>
+                    <div class="info-card">
+                        <h4>Vendor Klasörleri</h4>
+                        <div class="value">74</div>
+                        <small>paket</small>
+                    </div>
+                    <div class="info-card">
+                        <h4>Route Tanımları</h4>
+                        <div class="value">121</div>
+                        <small>route</small>
+                    </div>
+                </div>
+
+                <h3>❌ Kod Kalitesi Sorunları</h3>
+
+                <h4>1. Mimari Sorunları</h4>
+                <ul>
+                    <li>❌ <strong>Separation of Concerns ihlali:</strong> Business logic, data access ve UI iç içe</li>
+                    <li>❌ <strong>Models klasörü boş:</strong> OOP prensipleri uygulanmamış</li>
+                    <li>❌ <strong>Code-behind şişkinliği:</strong> 150-300 satırlık metodlar</li>
+                    <li>❌ <strong>Spaghetti code:</strong> Karmaşık if-else blokları</li>
+                </ul>
+
+                <h4>2. Database Access Layer</h4>
+                <div class="code-block">
+// ❌ KÖTÜ - Her yerde tekrarlanan kod
+App_Code.ConCs cn = new App_Code.ConCs();
+SqlDataAdapter da = new SqlDataAdapter("SELECT ...", cn._Baglan());
+DataTable dt = new DataTable();
+da.Fill(dt);
+                </div>
+                <ul>
+                    <li>❌ Repository pattern yok</li>
+                    <li>❌ ORM kullanımı yok (Entity Framework, Dapper)</li>
+                    <li>❌ Raw SQL heryerde</li>
+                    <li>❌ Connection management optimal değil</li>
+                </ul>
+
+                <h4>3. Error Handling</h4>
+                <div class="code-block">
+// ❌ KÖTÜ - Anlamsız exception re-throw
+try {
+    _Sonuc = cm.ExecuteNonQuery();
+}
+catch (Exception ex) {
+    throw new Exception(ex.Message); // Stack trace kayboldu!
+}
+                </div>
+                <ul>
+                    <li>❌ Merkezi error logging yok</li>
+                    <li>❌ Try-catch blokları gereksiz</li>
+                    <li>❌ Exception'lar custom değil</li>
+                </ul>
+
+                <h4>4. Naming Conventions</h4>
+                <div class="code-block">
+// ❌ Karışık Türkçe/İngilizce isimlendirme
+public SqlConnection _Baglan()
+public DataTable DataTableGetir(string _Sql)
+lblToplamTutarKdvHaric
+btnGonder
+                </div>
+
+                <h4>5. Magic Numbers/Strings</h4>
+                <div class="code-block">
+// ❌ Hardcoded ID'ler
+if (ddOdemeSekli.SelectedValue == "1000000001") // Ne anlama geliyor?
+Session["sYetki"] = "1000000000"; // Admin mi?
+                </div>
+
+                <h4>6. Code Duplication</h4>
+                <ul>
+                    <li>❌ Sepet/Sepet2 tabloları duplike (her işlem 2 kez yapılıyor)</li>
+                    <li>❌ 3 rol için benzer kodlar kopyalanmış (user/Admin/Mt)</li>
+                    <li>❌ Login logic her rol için tekrarlanmış</li>
+                </ul>
+
+                <h4>7. Testing</h4>
+                <div class="alert alert-danger">
+                    <strong>⚠️ Unit Test YOK!</strong><br>
+                    Test projeleri bulunamadı. Kod test edilebilir değil (tight coupling).
+                </div>
+
+                <h3>✅ İyi Yönler</h3>
+                <ul>
+                    <li>✅ DevExpress kontrolleri profesyonel kullanılmış</li>
+                    <li>✅ Stored procedure'ler bazı yerlerde kullanılmış</li>
+                    <li>✅ Friendly URL routing uygulanmış</li>
+                    <li>✅ Master page yapısı doğru kullanılmış</li>
+                    <li>✅ Session keep-alive mekanizması</li>
+                    <li>✅ Responsive design (Bootstrap)</li>
+                </ul>
+
+                <h3>Modernizasyon Önerileri</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Faz 1: Güvenlik (1-2 ay)</strong>
+                        <ul>
+                            <li>SQL Injection açıklarını kapat</li>
+                            <li>Password hashing güncelle</li>
+                            <li>HTTPS zorlaması</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Faz 2: Kod Kalitesi (2-3 ay)</strong>
+                        <ul>
+                            <li>Repository pattern uygula</li>
+                            <li>Business logic ayır</li>
+                            <li>Unit testler yaz</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Faz 3: Modernizasyon (4-6 ay)</strong>
+                        <ul>
+                            <li>ASP.NET Core'a migration</li>
+                            <li>Web API katmanı</li>
+                            <li>Entity Framework Core</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Faz 4: Frontend (3-4 ay)</strong>
+                        <ul>
+                            <li>React/Vue SPA</li>
+                            <li>RESTful API'lar</li>
+                            <li>SignalR real-time</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teknolojiler Tab -->
+            <div id="teknolojiler" class="tab-content">
+                <h2>🛠️ Kullanılan Teknolojiler</h2>
+
+                <h3>Backend Teknolojileri</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Teknoloji</th>
+                                <th>Versiyon</th>
+                                <th>Kullanım Alanı</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ASP.NET Web Forms</td>
+                                <td>4.6.1</td>
+                                <td>Ana framework</td>
+                                <td><span class="badge badge-warning">Eski</span></td>
+                            </tr>
+                            <tr>
+                                <td>C#</td>
+                                <td>6.0</td>
+                                <td>Programlama dili</td>
+                                <td><span class="badge badge-info">Güncel</span></td>
+                            </tr>
+                            <tr>
+                                <td>SQL Server</td>
+                                <td>2012+</td>
+                                <td>Veritabanı</td>
+                                <td><span class="badge badge-success">Destekleniyor</span></td>
+                            </tr>
+                            <tr>
+                                <td>DevExpress</td>
+                                <td>22.2.6 (2022)</td>
+                                <td>UI kontrolleri</td>
+                                <td><span class="badge badge-success">Güncel</span></td>
+                            </tr>
+                            <tr>
+                                <td>Newtonsoft.Json</td>
+                                <td>-</td>
+                                <td>JSON parsing</td>
+                                <td><span class="badge badge-success">Aktif</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Frontend Teknolojileri</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Teknoloji</th>
+                                <th>Versiyon</th>
+                                <th>Kullanım</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bootstrap</td>
+                                <td>3.x</td>
+                                <td>CSS framework</td>
+                            </tr>
+                            <tr>
+                                <td>jQuery</td>
+                                <td>3.x</td>
+                                <td>JavaScript kütüphanesi</td>
+                            </tr>
+                            <tr>
+                                <td>Font Awesome</td>
+                                <td>5.x</td>
+                                <td>İkon seti</td>
+                            </tr>
+                            <tr>
+                                <td>Morris.js</td>
+                                <td>0.5.x</td>
+                                <td>Grafik çizimi</td>
+                            </tr>
+                            <tr>
+                                <td>Select2</td>
+                                <td>4.x</td>
+                                <td>Gelişmiş dropdown</td>
+                            </tr>
+                            <tr>
+                                <td>Porto Admin Template</td>
+                                <td>-</td>
+                                <td>UI template</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>DevExpress Kontrolleri</h3>
+                <ul>
+                    <li><strong>ASPxGridView:</strong> Veri tabloları (100+ kullanım)</li>
+                    <li><strong>ASPxPopupControl:</strong> Modal pencereler</li>
+                    <li><strong>ASPxTextBox:</strong> Gelişmiş input'lar</li>
+                    <li><strong>ASPxComboBox:</strong> Dropdown'lar</li>
+                    <li><strong>ASPxDateEdit:</strong> Tarih seçici</li>
+                    <li><strong>ASPxChart:</strong> Grafikler</li>
+                    <li><strong>ASPxPivotGrid:</strong> Pivot tablolar</li>
+                    <li><strong>ASPxWebDocumentViewer:</strong> Rapor görüntüleyici</li>
+                </ul>
+
+                <h3>Vendor Paketleri (74 klasör)</h3>
+                <p>Önemli 3. parti kütüphaneler:</p>
+                <div class="folder-tree">
+                    <ul>
+                        <li>📦 bootstrap/ - UI framework</li>
+                        <li>📦 jquery/ - JavaScript</li>
+                        <li>📦 font-awesome/ - İkonlar</li>
+                        <li>📦 devexpress/ - Grid ve kontroller</li>
+                        <li>📦 morris/ - Grafik çizimi</li>
+                        <li>📦 select2/ - Gelişmiş select</li>
+                        <li>📦 magnific-popup/ - Modal'lar</li>
+                        <li>📦 bootstrap-datepicker/ - Tarih</li>
+                        <li>📦 ... 66 paket daha</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Değerlendirme Tab -->
+            <div id="degerlendirme" class="tab-content">
+                <h2>⭐ Genel Değerlendirme ve Sonuç</h2>
+
+                <div class="score-card">
+                    <div class="label">GENEL PUAN</div>
+                    <div class="score">5.5/10</div>
+                    <div>Orta Seviye - İyileştirme Gerekli</div>
+                </div>
+
+                <h3>Kategori Bazlı Puanlama</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kategori</th>
+                                <th>Puan</th>
+                                <th>Açıklama</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Güvenlik</strong></td>
+                                <td>2/10</td>
+                                <td>Kritik açıklar mevcut</td>
+                                <td><span class="badge badge-danger">Kötü</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kod Kalitesi</strong></td>
+                                <td>4/10</td>
+                                <td>Spaghetti kod, tekrar çok</td>
+                                <td><span class="badge badge-warning">Zayıf</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mimari</strong></td>
+                                <td>3/10</td>
+                                <td>Katmanlı mimari yok</td>
+                                <td><span class="badge badge-warning">Zayıf</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fonksiyonellik</strong></td>
+                                <td>8/10</td>
+                                <td>İş gereksinimleri karşılanmış</td>
+                                <td><span class="badge badge-success">İyi</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kullanılabilirlik</strong></td>
+                                <td>7/10</td>
+                                <td>UI iyi, responsive</td>
+                                <td><span class="badge badge-success">İyi</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bakım Kolaylığı</strong></td>
+                                <td>3/10</td>
+                                <td>Kod karmaşık, dökümantasyon yok</td>
+                                <td><span class="badge badge-danger">Kötü</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Performans</strong></td>
+                                <td>6/10</td>
+                                <td>Orta seviye, optimizasyon yok</td>
+                                <td><span class="badge badge-info">Orta</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Teknoloji</strong></td>
+                                <td>5/10</td>
+                                <td>Eski framework, modern değil</td>
+                                <td><span class="badge badge-warning">Eski</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Yazılımcı Profili Analizi</h3>
+                <div class="alert alert-info">
+                    <h4>👨‍💻 Deneyim Seviyesi: Junior/Mid-Level (Orta Seviye)</h4>
+                    <p><strong>Kim yazdı:</strong></p>
+                    <ul>
+                        <li>2-4 yıl ASP.NET deneyimi olan</li>
+                        <li>DevExpress deneyimi olan (lisanslı ürün)</li>
+                        <li>SQL Server kullanan</li>
+                        <li>E-ticaret domain bilgisi olan</li>
+                        <li>Türkiye'de çalışan (Türkçe isimlendirme)</li>
+                        <li>Muhtemelen KOBİ/küçük ajans ortamında</li>
+                    </ul>
+                </div>
+
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h3>✅ Güçlü Yönler</h3>
+                        <ul>
+                            <li>Kompleks iş akışlarını implemente edebilmiş</li>
+                            <li>Proje tamamlanmış ve çalışıyor</li>
+                            <li>DevExpress profesyonel kullanılmış</li>
+                            <li>Ödeme sistemi entegrasyonu yapılmış</li>
+                            <li>Raporlama modülü mevcut</li>
+                            <li>Responsive tasarım uygulanmış</li>
+                            <li>3 ayrı rol yönetimi</li>
+                            <li>Routing yapısı SEO dostu</li>
+                            <li>22,000+ satır kod yazılmış</li>
+                            <li>255+ sayfa tamamlanmış</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h3>❌ Zayıf Yönler</h3>
+                        <ul>
+                            <li>Güvenlik bilinci çok düşük</li>
+                            <li>SQL Injection heryerde</li>
+                            <li>MD5 kullanımı (eski)</li>
+                            <li>Clean Code prensipleri yok</li>
+                            <li>Design patterns kullanılmamış</li>
+                            <li>Kod tekrarı çok fazla</li>
+                            <li>Test yok (unit test)</li>
+                            <li>Modüler yapı eksik</li>
+                            <li>Best practices bilmiyor</li>
+                            <li>Separation of concerns ihlal</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>AMATÖR MÜ, PROFESYONEL Mİ?</h3>
+                <div class="alert alert-warning">
+                    <h4>📊 Cevap: <strong>Yarı-Profesyonel / İleri Seviye Amatör</strong></h4>
+                    <p><strong>Açıklama:</strong></p>
+                    <p>
+                        Bu proje, <strong>"İşini yapan ama best practices'i bilmeyen, deneyim seviyesi orta olan
+                        bir yazılımcı"</strong> tarafından yazılmış. Araba kullanmasını bilen ama trafik kurallarının
+                        bir kısmını bilmeyen, düz yolda gidebilen ama virajlarda yavaşlamayan bir sürücü gibi.
+                    </p>
+                    <p><strong>Profil Özeti:</strong></p>
+                    <ul>
+                        <li><strong>Güçlü:</strong> İş mantığını anlayıp implemente edebiliyor</li>
+                        <li><strong>Zayıf:</strong> Güvenlik ve mimari konularda çok zayıf</li>
+                        <li><strong>Yaklaşım:</strong> Hızlı delivery odaklı, kalite ikinci planda</li>
+                        <li><strong>Ortam:</strong> Muhtemelen deadline baskısı olan, kod review olmayan bir ortam</li>
+                    </ul>
+                </div>
+
+                <h3>📊 Veritabanı Dosyası Durumu</h3>
+                <div class="db-status not-found">
+                    <strong>⚠️ Veritabanı Dosyası Bulunamadı</strong><br><br>
+                    <strong>Arama Sonuçları:</strong>
+                    <ul>
+                        <li>❌ .mdf dosyası: Bulunamadı</li>
+                        <li>❌ .ldf dosyası: Bulunamadı</li>
+                        <li>❌ .bak dosyası: Bulunamadı</li>
+                        <li>❌ .sql dosyası: Bulunamadı</li>
+                    </ul>
+                    <strong>Açıklama:</strong><br>
+                    Veritabanı <strong>uzak sunucuda</strong> (185.139.5.125) barındırılmaktadır.
+                    Proje klasöründe lokal DB dosyası yok. <strong>App_Data/</strong> klasörü boş
+                    (sadece UploadTemp/ klasörü mevcut).
+                    <br><br>
+                    <strong>Etki:</strong><br>
+                    Proje yeni bir ortamda çalıştırılamaz (DB backup gerekli).
+                    Veritabanı sunucusuna erişim olmadan geliştirme yapılamaz.
+                </div>
+
+                <h3>Acil Eylem Planı</h3>
+                <div class="recommendation">
+                    <strong>🚨 HEMEN YAPILMASI GEREKENLER (1 Hafta):</strong>
+                    <ol>
+                        <li><strong>Güvenlik:</strong> SQL Injection açıklarını kapat</li>
+                        <li><strong>Backup:</strong> Veritabanı backup al (.bak)</li>
+                        <li><strong>Credentials:</strong> Connection string şifrele</li>
+                        <li><strong>HTTPS:</strong> SSL zorunlu hale getir</li>
+                        <li><strong>Logging:</strong> Error logging sistemi kur</li>
+                    </ol>
+
+                    <strong>📋 KISA VADELİ (1-3 Ay):</strong>
+                    <ol>
+                        <li>Password hashing güncelle (BCrypt)</li>
+                        <li>Repository pattern uygula</li>
+                        <li>Input validation ekle</li>
+                        <li>Code review süreci başlat</li>
+                        <li>Unit testler yaz (kritik modüller için)</li>
+                    </ol>
+
+                    <strong>🎯 ORTA VADELİ (3-6 Ay):</strong>
+                    <ol>
+                        <li>Business logic katmanı ayır</li>
+                        <li>Entity Framework ekle</li>
+                        <li>Web API layer oluştur</li>
+                        <li>Dependency Injection ekle</li>
+                        <li>CI/CD pipeline kur</li>
+                    </ol>
+
+                    <strong>🚀 UZUN VADELİ (6-12 Ay):</strong>
+                    <ol>
+                        <li>ASP.NET Core'a migration planla</li>
+                        <li>Microservices mimarisini değerlendir</li>
+                        <li>Modern frontend (React/Vue)</li>
+                        <li>Cloud migration (Azure/AWS)</li>
+                        <li>DevOps tam otomasyon</li>
+                    </ol>
+                </div>
+
+                <h3>Son Söz</h3>
+                <div class="alert alert-success">
+                    <h4>✅ Sonuç</h4>
+                    <p>
+                        <strong>TMSN-B2B Gediz Makina</strong> projesi, fonksiyonel olarak çalışan,
+                        temel iş gereksinimlerini karşılayan bir B2B platformudur. Ancak, <strong>kritik
+                        güvenlik açıkları</strong> ve <strong>düşük kod kalitesi</strong> nedeniyle
+                        acil iyileştirme gerektirir.
+                    </p>
+                    <p>
+                        Proje, <strong>orta seviye bir yazılımcı</strong> tarafından geliştirilmiş ve
+                        "işlevi yerine getiriyor" ancak modern yazılım geliştirme standartlarına uzak.
+                        Güvenlik açıkları <strong>ÇOK ÖNEMLİ</strong> ve derhal ele alınmalıdır.
+                    </p>
+                    <p>
+                        <strong>Öneri:</strong> Kısa vadede güvenlik düzeltmeleri, orta vadede kod
+                        kalitesi iyileştirmeleri, uzun vadede ise modern teknolojilere migration planlanmalıdır.
+                    </p>
+                </div>
+
+                <div class="stat-number">
+                    5.5 / 10
+                </div>
+                <p style="text-align: center; font-size: 1.2em; color: #666;">
+                    <strong>Genel Değerlendirme:</strong> Orta Seviye - İyileştirme Şart
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>📄 TMSN-B2B Gediz Makina - Detaylı Proje Analiz Raporu</strong></p>
+            <p>Rapor Tarihi: 24 Ekim 2025 | Analist: Claude Code AI | Versiyon: 1.0</p>
+            <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                Bu rapor, statik kod analizi ve dosya incelemesi ile oluşturulmuştur.<br>
+                Çalışan sistem üzerinde penetrasyon testi veya dinamik analiz yapılmamıştır.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active from all nav tabs
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+
+            // Set active nav tab
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Animate progress bars on load
+        window.addEventListener('load', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
